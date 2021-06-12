@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ViewModels\PeopleViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -16,9 +17,9 @@ class PeopleController extends Controller
     {
         $popularPeople = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/popular')->json()['results'];
 
-        return view('people.index', [
-            'peps' => $popularPeople
-        ]);
+        $viewModel = new PeopleViewModel($popularPeople);
+
+        return view('people.index', $viewModel);
     }
 
     /**
