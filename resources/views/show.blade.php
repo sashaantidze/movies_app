@@ -14,15 +14,7 @@
 					<span class="mx-1">|</span>
 					{{ $movie['release_date'] }}
 					<span class="mx-1">|</span>
-					<span class="mx-1">
-						
-						@foreach ($movie['genres'] as $genre)
-
-							{{$genre['name']}}@if (!$loop->last), @endif
-
-						@endforeach
-
-					</span>
+					<span class="mx-1">{{$movie['genres']}}</span>
 				</div>
 
 				<p class="text-gray-300 mt-8">{{ $movie['overview'] }}</p>
@@ -30,15 +22,11 @@
 				<div class="mt-12">
 					<h4 class="text-white font-semibold">Featured Crew</h4>
 					<div class="flex mt-4">
-						@foreach ($movie['credits']['crew'] as $crew)
-							@if($loop->index < 5)
+						@foreach ($movie['crew'] as $crew)
 								<div class="mr-8">
 									<div>{{ $crew['name'] }}</div>
 									<div class="text-sm text-gray-400">{{ $crew['job'] }}</div>
 								</div>
-							@else 
-								@break
-							@endif
 						@endforeach
 
 						
@@ -82,8 +70,7 @@
 		<div class="container mx-auto px-4 py-16">
 			<h2 class="text-4xl font-semibold">Cast</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
-				@foreach($movie['credits']['cast'] as $cast)
-					@if($loop->index < 10)
+				@foreach($movie['cast'] as $cast)
 					<div class="mt-8">
 						<a href="#">
 							@if($cast['profile_path'])
@@ -99,9 +86,6 @@
 							</div>
 						</div>
 					</div>
-					@else 
-						@break
-					@endif
 				@endforeach
 
 				
@@ -118,23 +102,18 @@
 				<h2 class="text-4xl font-semibold">Gallery</h2>
 				<div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
 
-					@foreach($movie['images']['backdrops'] as $image)
-						@if($loop->index < 12)
+					@foreach($movie['images'] as $image)
 							<div class="mt-8">
 								<a href="#" 
 								@click.prevent="
 									imageOpen = true
 									image = '{{config('services.tmdb.image_base_url')."/original".$image['file_path']}}'
 									"
-
 								>
 									<img src="{{config('services.tmdb.image_base_url')."/w500".$image['file_path']}}" alt="{{ $image['aspect_ratio'] }}" class="hover:opacity-75 transition ease-in-out duration-150">
 								</a>
 								
 							</div>
-						@else 
-							@break
-						@endif
 					@endforeach
 					<x-movie-image-modal/>
 					
