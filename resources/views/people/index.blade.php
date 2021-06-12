@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-
 	<div class="container mx-auto px-4 pt-16">
 
 		<div class="popular-actors">
@@ -13,6 +12,9 @@
 					<a href="#">
 						<img src="https://image.tmdb.org/t/p/w500/8xNfIVNDumyxqGJw71DleJ5YugK.jpg" alt="Main image" class="hover:opacity-75 transition ease-in-out duration-150">
 					</a>
+					<div class="mt-2">
+						<a href="#" class="text-lg hover:text-gray-300">Actor name</a>
+					</div>
 				</div>
 	
 			</div>

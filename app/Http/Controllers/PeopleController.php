@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class PeopleController extends Controller
 {
@@ -13,7 +14,11 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        return view('people.index');
+        $popularPeople = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/popular')->json()['results'];
+
+        return view('people.index', [
+            'peps' => $popularPeople
+        ]);
     }
 
     /**
