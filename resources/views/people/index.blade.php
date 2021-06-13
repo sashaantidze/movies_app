@@ -7,15 +7,14 @@
 
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
 
-
 				@foreach($popularPoeple as $person)
 
 					<div class="actor mt-8">
-						<a href="#">
+						<a href="{{route('people.show', $person['id'])}}">
 							<img src="{{$person['profile_path']}}" alt="Main image" class="hover:opacity-75 transition ease-in-out duration-150">
 						</a>
 						<div class="mt-2">
-							<a href="#" class="text-lg hover:text-gray-300">{{$person['name']}}</a>
+							<a href="{{route('people.show', $person['id'])}}" class="text-lg hover:text-gray-300">{{$person['name']}}</a>
 							<div class="text-sm truncate text-gray-400">{{$person['known_for']}}</div>
 						</div>
 					</div>
@@ -27,6 +26,50 @@
 
 		</div>
 
+
+		<div class="page-load-status my-8">
+			<p class="infinite-scroll-request my-8 sp text-4xl spinner">
+				<x-people-svg-loader/>
+			</p>
+			<p class="infinite-scroll-last">End of content</p>
+  			<p class="infinite-scroll-error">No more pages to load</p>
+		</div>		
+
+
+
+		{{-- <div class="flex justify-between mt-16">
+			@if($previous)
+				<a href="/people/page/{{$previous}}">Previous</a>
+			@else
+				<div></div>
+			@endif
+			
+			@if($next)
+				<a href="/people/page/{{$next}}">Next</a>
+			@else
+				<div></div>
+			@endif
+
+		</div> --}}
 	</div>
+
+@endsection
+
+@section('scripts')
+
+	<script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+	<script>
+		
+		let elem = document.querySelector('.grid');
+		let infScroll = new InfiniteScroll( elem, {
+		  // options
+		  path: './people/page/@{{#}}',
+		  append: '.actor',
+		  // history: false,
+		  status: '.page-load-status',
+		});
+
+
+	</script>
 
 @endsection

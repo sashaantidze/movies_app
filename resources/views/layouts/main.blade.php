@@ -50,6 +50,6 @@
 	</nav>
 	@yield('content')
 	<livewire:scripts>
-		
+	@yield('scripts')
 </body>
 </html>

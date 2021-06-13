@@ -13,11 +13,11 @@ class PeopleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($page = 1)
     {
-        $popularPeople = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/popular')->json()['results'];
+        $popularPeople = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/popular?page='.$page)->json()['results'];
 
-        $viewModel = new PeopleViewModel($popularPeople);
+        $viewModel = new PeopleViewModel($popularPeople, $page);
 
         return view('people.index', $viewModel);
     }
@@ -51,7 +51,7 @@ class PeopleController extends Controller
      */
     public function show($id)
     {
-        //
+        return $id;
     }
 
     /**
