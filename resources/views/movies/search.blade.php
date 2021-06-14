@@ -28,7 +28,7 @@
 		</div>
 
 
-		<div class="flex justify-between mt-16">
+		<div class="flex justify-between mt-16 hidden">
 			@if($previous)
 				<a href="/movies/search/{{$keyword}}/{{$previous}}">Previous</a>
 			@else

@@ -37,7 +37,7 @@
 
 
 
-		{{-- <div class="flex justify-between mt-16">
+		<div class="flex justify-between mt-16 hidden">
 			@if($previous)
 				<a href="/people/page/{{$previous}}">Previous</a>
 			@else
@@ -45,12 +45,12 @@
 			@endif
 			
 			@if($next)
-				<a href="/people/page/{{$next}}">Next</a>
+				<a class="infin-pag-next" href="/people/page/{{$next}}">Next</a>
 			@else
 				<div></div>
 			@endif
 
-		</div> --}}
+		</div>
 	</div>
 
 @endsection
@@ -63,7 +63,7 @@
 		let elem = document.querySelector('.grid');
 		let infScroll = new InfiniteScroll( elem, {
 		  // options
-		  path: './people/page/@{{#}}',
+		  path: '.infin-pag-next',
 		  append: '.actor',
 		  // history: false,
 		  status: '.page-load-status',

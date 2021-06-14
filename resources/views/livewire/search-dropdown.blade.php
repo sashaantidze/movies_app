@@ -1,4 +1,4 @@
-<div class="relative mt-3 md:mt-0" x-data="{ isOpen: true }" @click.away="isOpen = false">
+<div class="relative mt-3 md:mt-0" x-data="{ isOpen: true, keyword: '' }" @click.away="isOpen = false">
 
 	<input 
 		wire:model.debounce.500ms="search" 
@@ -16,6 +16,7 @@
 		@keydown="isOpen = true"
 		@keydown.escape.window="isOpen = false"
 		@keydown.shift.tab="isOpen = false"
+		x-model="keyword"
 	>
 
 	<div class="absolute top-0">
@@ -117,7 +118,7 @@
 						</li>
 					@endforeach
 
-					@if($seeAllButton) <div class="px-3 py-3 text-center"><a href="{{route('movies.search', $search)}}">See All</a></div> @endif
+					@if($seeAllButton) <div class="px-3 py-3 text-center"><a x-bind:href="'/movies/search/'+keyword">See All</a></div> @endif
 				</ul>
 
 			@else
