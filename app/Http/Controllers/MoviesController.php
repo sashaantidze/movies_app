@@ -34,9 +34,9 @@ class MoviesController extends Controller
     }
 
 
-    public function search($search)
+    public function search($search, $page = 1)
     {
-        $searchResults = $popularMovies = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/search/movie?query='.$search)->json();
+        $searchResults = $popularMovies = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/search/movie?query='.$search.'&page='.$page)->json();
         $MovieGenres = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/genre/movie/list')->json();
         $genres = $MovieGenres['genres'];
 
@@ -44,7 +44,8 @@ class MoviesController extends Controller
             $searchResults['results'],
             [],
             $genres,
-            $search
+            $search,
+            $page
         );
 
         return view('movies.search', $viewModel);

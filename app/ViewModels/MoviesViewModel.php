@@ -12,13 +12,15 @@ class MoviesViewModel extends ViewModel
     public $nowPlaying;
     public $genres;
     public $keyword;
+    public $page;
 
-    public function __construct($popularMovies, $nowPlaying, $genres, $keyword = '')
+    public function __construct($popularMovies, $nowPlaying, $genres, $keyword = '', $page = 1)
     {
         $this->popularMovies = $popularMovies;
         $this->nowPlaying = $nowPlaying;
         $this->genres = $genres;
         $this->keyword = $keyword;
+        $this->page = $page;
     }
 
 
@@ -27,7 +29,23 @@ class MoviesViewModel extends ViewModel
         return $this->keyword;
     }
 
+    public function page()
+    {
+        return $this->page;
+    }
 
+
+    public function previous()
+    {
+        return $this->page > 1 ? $this->page - 1 : null;
+    }
+
+
+    public function next()
+    {
+        return $this->page < 500 ? $this->page + 1 : null;
+    }
+    
 
     public function popularMovies()
     {
