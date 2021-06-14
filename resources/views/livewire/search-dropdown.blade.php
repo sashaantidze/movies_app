@@ -3,7 +3,7 @@
 	<input 
 		wire:model.debounce.500ms="search" 
 		type="text" 
-		class="bg-gray-800 rounded-full w6 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline text-sm" 
+		class="bg-gray-800 rounded-full w6 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline text-sm"
 		placeholder="Search"
 		x-ref="search"
 		@keydown.window="
@@ -117,7 +117,7 @@
 						</li>
 					@endforeach
 
-					@if($seeAllButton) <div class="px-3 py-3 text-center"><a href="#">See All</a></div> @endif
+					@if($seeAllButton) <div class="px-3 py-3 text-center"><a href="{{route('movies.search', $search)}}">See All</a></div> @endif
 				</ul>
 
 			@else

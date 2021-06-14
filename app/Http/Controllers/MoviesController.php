@@ -33,6 +33,23 @@ class MoviesController extends Controller
         return view('movies.index', $viewModel);
     }
 
+
+    public function search($search)
+    {
+        $searchResults = $popularMovies = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/search/movie?query='.$search)->json();
+        $MovieGenres = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/genre/movie/list')->json();
+        $genres = $MovieGenres['genres'];
+
+        $viewModel = new MoviesViewModel(
+            $searchResults['results'],
+            [],
+            $genres,
+            $search
+        );
+
+        return view('movies.search', $viewModel);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -102,4 +119,6 @@ class MoviesController extends Controller
     {
         //
     }
+
+
 }

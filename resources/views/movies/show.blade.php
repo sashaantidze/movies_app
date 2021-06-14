@@ -72,14 +72,14 @@
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
 				@foreach($movie['cast'] as $cast)
 					<div class="mt-8">
-						<a href="#">
+						<a href="{{route('people.show', $cast['id'])}}">
 							@if($cast['profile_path'])
 								<img src="{{config('services.tmdb.image_base_url')."w500".$cast['profile_path']}}" alt="{{ $cast['name'] }}" class="hover:opacity-75 transition ease-in-out duration-150">
 							@else <img src="{{asset('img/no-photo-1.jpg')}}" alt="Photo unavailable" class="hover:opacity-75 transition ease-in-out duration-150">
 							@endif
 						</a>
 						<div class="mt-2">
-							<a href="#" class="text-lg mt-2 hover:text-gray-300">{{ $cast['name'] }}</a>
+							<a href="{{route('people.show', $cast['id'])}}" class="text-lg mt-2 hover:text-gray-300">{{ $cast['name'] }}</a>
 							
 							<div class="text-gray-400 text-sm">
 								{{ $cast['character'] }}
