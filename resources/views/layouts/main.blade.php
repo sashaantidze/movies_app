@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
 	<livewire:styles>
 	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+	<script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+
 </head>
 <body class="font-sans bg-gray-900 text-white">
 
