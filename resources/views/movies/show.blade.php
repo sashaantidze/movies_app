@@ -80,7 +80,7 @@
 						</a>
 						<div class="mt-2">
 							<a href="{{route('people.show', $cast['id'])}}" class="text-lg mt-2 hover:text-gray-300">{{ $cast['name'] }}</a>
-							<div class="hidden">hidden div</div>
+							
 							<div class="text-gray-400 text-sm">
 								{{ $cast['character'] }}
 							</div>
@@ -95,16 +95,28 @@
 
 
 
-	{{-- <div class="movie-cast border-b border-gray-800">
+	<div class="movie-cast border-b border-gray-800">
 		<div class="container mx-auto px-4 py-16">
 			<h2 class="text-4xl font-semibold">Similar Movies</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
 				
-				
+				<div class="text-3xl italic font-extralight">Coming soon..</div>
 				
 			</div>
 		</div>
-	</div> --}}
+	</div>
+
+
+	<div class="movie-cast border-b border-gray-800">
+		<div class="container mx-auto px-4 py-16">
+			<h2 class="text-4xl font-semibold">Recommended Movies</h2>
+			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
+				
+				<div class="text-3xl italic font-extralight">Coming soon..</div>
+				
+			</div>
+		</div>
+	</div>
 
 
 
