@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ViewModels\PeopleViewModel;
+use App\ViewModels\PersonViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -15,6 +16,8 @@ class PeopleController extends Controller
      */
     public function index($page = 1)
     {
+        abort_if($page > 500, 204);
+
         $popularPeople = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/popular?page='.$page)->json()['results'];
 
         $viewModel = new PeopleViewModel($popularPeople, $page);
@@ -51,7 +54,14 @@ class PeopleController extends Controller
      */
     public function show($id)
     {
-        return $id;
+
+        $person = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/'.$id)->json();
+        $socialNets = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/'.$id.'/external_ids')->json();
+        $combinedCredits = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/'.$id.'/combined_credits')->json();
+        
+        $viewModel = new PersonViewModel($person, $socialNets, $combinedCredits);
+
+        return view('people.show', $viewModel);
     }
 
     /**
