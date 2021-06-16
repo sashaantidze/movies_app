@@ -80,7 +80,7 @@
 						</a>
 						<div class="mt-2">
 							<a href="{{route('people.show', $cast['id'])}}" class="text-lg mt-2 hover:text-gray-300">{{ $cast['name'] }}</a>
-							
+							<div class="hidden">hidden div</div>
 							<div class="text-gray-400 text-sm">
 								{{ $cast['character'] }}
 							</div>
