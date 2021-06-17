@@ -8,7 +8,7 @@ Route::get('/movies/{movie}', 'App\Http\Controllers\MoviesController@show')->nam
 Route::get('/movies/search/{keyword}/{page?}', 'App\Http\Controllers\MoviesController@search')->name('movies.search');
 Route::get('/movies/person/{person}', 'App\Http\Controllers\MoviesController@person')->name('movies.person');
 Route::get('/movies/similar/{movie}/{page?}', 'App\Http\Controllers\MoviesController@similar')->name('movies.similar');
-Route::get('/movies/recommendation/{movie}/{page?}', 'App\Http\Controllers\MoviesController@similar')->name('movies.recommendation');
+Route::get('/movies/recommendation/{movie}/{page?}', 'App\Http\Controllers\MoviesController@recommendation')->name('movies.recommendation');
 
 Route::get('/people', 'App\Http\Controllers\PeopleController@index')->name('people.index');
 Route::get('/people/{person}', 'App\Http\Controllers\PeopleController@show')->name('people.show');

@@ -17,15 +17,41 @@ class MoviesViewModel extends ViewModel
     public function __construct($moviesData, $nowPlaying, $genres, $keyword = '', $page = 1, $person_id = null)
     {
         //dd($moviesData);
-        $this->moviesData = $moviesData;
+        $this->moviesData = $this->defineMoviesDestination($moviesData);
+        //$this->moviesData = $moviesData;
         $this->nowPlaying = $nowPlaying;
         $this->genres = $genres;
         $this->keyword = $keyword;
         $this->page = $page;
         $this->person_id = $person_id;
         $this->base_movie_ID = Arr::exists($moviesData, 'main_movie_id') ? $moviesData['main_movie_id'] : null;
+        $this->main_mov_title = Arr::exists($moviesData, 'title') ? $moviesData['title'] : null;
+        //dd($this->defineMoviesDestination($moviesData));
+
     }
 
+
+    private function defineMoviesDestination($movies)
+    {
+        if(Arr::exists($movies, 'recommendations'))
+        {
+            return $movies['recommendations'];
+        }
+        else if(Arr::exists($movies, 'similar'))
+        {
+            return $movies['similar'];
+        }
+        else
+        {
+            return $movies;
+        }
+    }
+
+
+    // public function baseMovTitle()
+    // {
+    //     return $this->main_mov_title;
+    // }
 
     public function baseMovID()
     {

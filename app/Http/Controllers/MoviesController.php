@@ -34,8 +34,10 @@ class MoviesController extends Controller
 
     public function similar($id)
     {
-        $similarMovies = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/'.$id.'/similar')->json();
+        $similarMovies = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/'.$id.'?append_to_response=details,similar')->json();
         $similarMovies['main_movie_id'] = $id;
+
+        //dd($similarMovies);
 
         $viewModel = new MoviesViewModel(
             $similarMovies,
@@ -47,13 +49,15 @@ class MoviesController extends Controller
     }
 
 
-    public function reccomendations($id)
+    public function recommendation($id)
     {
-        $recommMovies = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/'.$id.'/recommendations')->json();
+        $recommMovies = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/'.$id.'?append_to_response=details,recommendations')->json();
         $recommMovies['main_movie_id'] = $id;
 
+        //dd($recommMovies);
+
         $viewModel = new MoviesViewModel(
-            $similarMovies,
+            $recommMovies,
             [],
             $this->getGenres()
         );
