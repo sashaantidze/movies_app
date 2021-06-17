@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ViewModels\MovieViewModel;
 use App\ViewModels\MoviesViewModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
 class MoviesController extends Controller
@@ -28,6 +29,17 @@ class MoviesController extends Controller
 
 
         return view('movies.index', $viewModel);
+    }
+
+
+    public function person($id)
+    {
+        $personMovies = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/'.$id.'/movie_credits')->json();
+        abort_if(Arr::exists($personMovies, 'success') && $personMovies['success'] == false, 404);
+
+
+        $viewModel = new MoviesViewModel($personMovies['cast'], [], $this->getGenres(), '', 1, $id);
+        return view('movies.person', $viewModel);
     }
 
 
@@ -83,8 +95,9 @@ class MoviesController extends Controller
      */
     public function show($id)
     {
-        $movieDetails = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/'.$id.'?append_to_response=credits,videos,images,similar')->json();
+        $movieDetails = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/movie/'.$id.'?append_to_response=credits,videos,images,similar,recommendations')->json();
         
+        dd($movieDetails);
         $viewModel = new MovieViewModel($movieDetails, $this->getGenres());
 
         return view('movies.show', $viewModel);

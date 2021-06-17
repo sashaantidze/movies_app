@@ -14,13 +14,20 @@ class MoviesViewModel extends ViewModel
     public $keyword;
     public $page;
 
-    public function __construct($popularMovies, $nowPlaying, $genres, $keyword = '', $page = 1)
+    public function __construct($popularMovies, $nowPlaying, $genres, $keyword = '', $page = 1, $person_id = null)
     {
         $this->popularMovies = $popularMovies;
         $this->nowPlaying = $nowPlaying;
         $this->genres = $genres;
         $this->keyword = $keyword;
         $this->page = $page;
+        $this->person_id = $person_id;
+    }
+
+
+    public function person_id()
+    {
+        return $this->person_id;
     }
 
 
@@ -70,7 +77,7 @@ class MoviesViewModel extends ViewModel
                 'poster_path' => $movie['poster_path'] ? config('services.tmdb.image_base_url')."/w500".$movie['poster_path'] : 'https://via.placeholder.com/500x737.png?text='.$movie['title'],
                 'vote_average' => $movie['vote_average'] * 10 . '%',
                 'release_date' => Arr::exists($movie, 'release_date') ? Carbon::parse($movie['release_date'])->format('M d, Y') : 'Release date not available',
-                'genres' => $genresFormatted
+                'genres' => $genresFormatted,
             ])->only([
                 'poster_path',
                 'id',
@@ -79,9 +86,10 @@ class MoviesViewModel extends ViewModel
                 'vote_average',
                 'overview',
                 'release_date',
-                'genres'
+                'genres',
+                'popularity',
             ]);
-        });
+        })->sortByDesc('popularity');
     }
 
     public function genres()

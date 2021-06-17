@@ -18,6 +18,7 @@ class MovieViewModel extends ViewModel
         
         $this->movie = $movie;
         $this->similarMovies = $movie['similar'];
+        $this->recommendations = $movie['recommendations'];
         $this->genres = $genres;
         
     }
@@ -25,6 +26,11 @@ class MovieViewModel extends ViewModel
     public function similarMovies()
     {
         return $this->formatMovies($this->similarMovies['results']);
+    }
+
+    public function recommendations()
+    {
+        return $this->formatMovies($this->recommendations['results']);
     }
 
     public function movie()
