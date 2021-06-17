@@ -20,17 +20,17 @@ class MovieViewModel extends ViewModel
         $this->similarMovies = $movie['similar'];
         $this->recommendations = $movie['recommendations'];
         $this->genres = $genres;
-        
     }
 
     public function similarMovies()
     {
-        return $this->formatMovies($this->similarMovies['results']);
+        //dd();
+        return $this->formatMovies(collect($this->similarMovies['results'])->sortByDesc('popularity'));
     }
 
     public function recommendations()
     {
-        return $this->formatMovies($this->recommendations['results']);
+        return $this->formatMovies(collect($this->recommendations['results'])->sortByDesc('popularity'));
     }
 
     public function movie()
@@ -45,7 +45,7 @@ class MovieViewModel extends ViewModel
             'images' => collect($this->movie['images']['backdrops'])->take(12),
         ])->only([
             'poster_path', 'id', 'genres', 'title', 'vote_average', 'overview', 'release_date', 'credits' ,
-            'videos', 'images', 'crew', 'cast', 'images'
+            'videos', 'images', 'crew', 'cast', 'images', 'popularity'
         ]);
     }
 
@@ -72,7 +72,8 @@ class MovieViewModel extends ViewModel
                 'vote_average',
                 'overview',
                 'release_date',
-                'genres'
+                'genres',
+                'popularity'
             ]);
         });
     }

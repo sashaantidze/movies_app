@@ -94,29 +94,53 @@
 	</div>
 
 
+	@if(count($similarMovies))
+		<div class="movie-similars border-b border-gray-800">
+			<div class="container mx-auto px-4 py-16">
 
-	<div class="movie-cast border-b border-gray-800">
-		<div class="container mx-auto px-4 py-16">
-			<h2 class="text-4xl font-semibold">Similar Movies</h2>
-			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
-				
-				<div class="text-3xl italic font-extralight">Coming soon..</div>
-				
+				<div class="section-title flex justify-start">
+					<h2 class="text-4xl font-semibold mr-4">Similar Movies</h2>
+					<a target="_blank" href="{{route('movies.similar', $movie['id'])}}" class="inline-flex items-center px-3 py-2 font-medium rounded leading-5 transition ease-in-out duration-150 text-white hover:text-white hover:bg-indigo-800">
+						    See All &nbsp;&nbsp; <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+							  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+							</svg>
+						</a>
+				</div>
+
+				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
+
+					@foreach($similarMovies->take(5) as $simMovie)
+						<x-movie-card :movie=$simMovie/>
+					@endforeach
+					
+				</div>
 			</div>
 		</div>
-	</div>
+	@endif
 
 
-	<div class="movie-cast border-b border-gray-800">
-		<div class="container mx-auto px-4 py-16">
-			<h2 class="text-4xl font-semibold">Recommended Movies</h2>
-			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
+	@if(count($recommendations))
+		<div class="movie-recomms border-b border-gray-800">
+			<div class="container mx-auto px-4 py-16">
+				<div class="section-title flex justify-start">
+					<h2 class="text-4xl font-semibold mr-4">Recommended Movies</h2>
+					<a target="_blank" href="{{route('movies.recommendation', $movie['id'])}}" class="inline-flex items-center px-3 py-2 font-medium rounded leading-5 transition ease-in-out duration-150 text-white hover:text-white hover:bg-indigo-800">
+						    See All &nbsp;&nbsp; <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+							  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+							</svg>
+						</a>
+				</div>
 				
-				<div class="text-3xl italic font-extralight">Coming soon..</div>
-				
+				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
+
+					@foreach($recommendations->take(5) as $recMovie)
+						<x-movie-card :movie=$recMovie/>
+					@endforeach
+					
+				</div>
 			</div>
 		</div>
-	</div>
+	@endif
 
 
 

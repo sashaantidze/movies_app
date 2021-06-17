@@ -8,20 +8,28 @@ use Spatie\ViewModels\ViewModel;
 
 class MoviesViewModel extends ViewModel
 {
-    public $popularMovies;
+    public $moviesData;
     public $nowPlaying;
     public $genres;
     public $keyword;
     public $page;
 
-    public function __construct($popularMovies, $nowPlaying, $genres, $keyword = '', $page = 1, $person_id = null)
+    public function __construct($moviesData, $nowPlaying, $genres, $keyword = '', $page = 1, $person_id = null)
     {
-        $this->popularMovies = $popularMovies;
+        //dd($moviesData);
+        $this->moviesData = $moviesData;
         $this->nowPlaying = $nowPlaying;
         $this->genres = $genres;
         $this->keyword = $keyword;
         $this->page = $page;
         $this->person_id = $person_id;
+        $this->base_movie_ID = Arr::exists($moviesData, 'main_movie_id') ? $moviesData['main_movie_id'] : null;
+    }
+
+
+    public function baseMovID()
+    {
+        return $this->base_movie_ID;
     }
 
 
@@ -54,19 +62,21 @@ class MoviesViewModel extends ViewModel
     }
     
 
-    public function popularMovies()
+    public function moviesData()
     {
-        return $this->formatMovies($this->popularMovies);
+        if(!collect($this->moviesData)->count()) return [];
+        return $this->formatMovies(collect($this->moviesData['results'])->sortByDesc('popularity'));
     }
 
     public function nowPlaying()
     {
-        return $this->formatMovies($this->nowPlaying);   
+        if(!collect($this->nowPlaying)->count()) return [];
+        return $this->formatMovies(collect($this->nowPlaying['results'])->sortByDesc('popularity'));   
     }
 
     private function formatMovies($movies)
     {
-        if(!collect($movies)->count()) return [];
+        
         //dd($movies);
         return collect($movies)->map(function($movie){
             $genresFormatted = collect($movie['genre_ids'])->mapWithKeys(function($value){
