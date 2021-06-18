@@ -13,6 +13,7 @@ Route::get('/movies/recommendation/{movie}/{page?}', 'App\Http\Controllers\Movie
 
 Route::get('/tv', 'App\Http\Controllers\TvController@index')->name('tv.index');
 Route::get('/tv/{tv}', 'App\Http\Controllers\TvController@show')->name('tv.show');
+Route::get('/tv/person/{person}', 'App\Http\Controllers\TvController@person')->name('tv.person');
 
 
 Route::get('/people', 'App\Http\Controllers\PeopleController@index')->name('people.index');

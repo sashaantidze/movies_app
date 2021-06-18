@@ -16,7 +16,7 @@ class TVShowViewModel extends ViewModel
 
     public function __construct($tvshow, $genres)
     {
-        
+        dd($tvshow);
         $this->tvshow = $tvshow;
         $this->genres = $genres;
         $this->similarShows = $tvshow['similar'];

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ViewModels\TVShowViewModel;
 use App\ViewModels\TvViewModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
 class TvController extends Controller
@@ -66,6 +67,19 @@ class TvController extends Controller
         $viewModel = new TVShowViewModel($TvDetails, $this->getGenres());
 
         return view('tv.show', $viewModel);
+    }
+
+
+    public function person($id)
+    {
+        $personTvshows = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/'.$id.'/tv_credits')->json();
+        abort_if(Arr::exists($personTvshows, 'success') && $personTvshows['success'] == false, 404);
+        //dd($personTvshows);
+
+        $personTvshows['results'] = $personTvshows['cast'];
+        $viewModel = new TvViewModel($personTvshows, ['results' => []], $this->getGenres(), '', 1, $id);
+        return view('tv.person', $viewModel);
+
     }
 
     /**
