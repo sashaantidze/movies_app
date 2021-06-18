@@ -69,10 +69,16 @@ class MoviesController extends Controller
     public function person($id)
     {
         $personMovies = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/'.$id.'/movie_credits')->json();
-        abort_if(Arr::exists($personMovies, 'success') && $personMovies['success'] == false, 404);
+        $personTvshows = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/'.$id.'/tv_credits')->json();
+        abort_if(
+            (Arr::exists($personMovies, 'success') && $personMovies['success'] == false ||
+            Arr::exists($personTvshows, 'success') && $personTvshows['success'] == false), 
+        404);
+
 
         $personMovies['results'] = $personMovies['cast'];
-        $viewModel = new MoviesViewModel($personMovies, [], $this->getGenres(), '', 1, $id);
+        $personTvshows['results'] = $personTvshows['cast'];
+        $viewModel = new MoviesViewModel($personMovies, $personTvshows, $this->getGenres(), '', 1, $id);
         return view('movies.person', $viewModel);
     }
 

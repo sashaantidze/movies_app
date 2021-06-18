@@ -3,6 +3,7 @@
 namespace App\ViewModels;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Spatie\ViewModels\ViewModel;
 
 class PersonViewModel extends ViewModel
@@ -39,12 +40,23 @@ class PersonViewModel extends ViewModel
 
     public function knownFor()
     {
+
         $personCast = collect($this->credits)->get('cast');
-        return collect($personCast)->where('media_type', 'movie')->sortByDesc('popularity')->take(5)
-        ->map(function($movie){
+        return collect($personCast)->sortByDesc('popularity')->take(5)->map(function($movie){
+            if(Arr::exists($movie, 'title')){
+                $title = $movie['title'];
+            }
+            else if(Arr::exists($movie, 'name')){
+                $title = $movie['name'];
+            }
+            else{
+                $title = 'Untitled';
+            }
             return collect($movie)->merge([
                 'poster_path' => $movie['poster_path'] ? config('services.tmdb.image_base_url')."/w185".$movie['poster_path'] : 'https://via.placeholder.com/500x737.png?text='.$movie['title'],
-            ])->only(['poster_path', 'title', 'id']);
+                'title' => $title,
+                'movie_tv_link' => Arr::exists($movie, 'title') ? route('movies.show', $movie['id']) : route('tv.show', $movie['id'])
+            ])->only(['poster_path', 'title', 'id', 'movie_tv_link']);
         });
 
     }

@@ -11,6 +11,7 @@ class MovieViewModel extends ViewModel
 
     public $movie;
     public $similarMovies;
+    public $recommendations;
     public $genres;
 
     public function __construct($movie, $genres)
@@ -24,7 +25,6 @@ class MovieViewModel extends ViewModel
 
     public function similarMovies()
     {
-        //dd();
         return $this->formatMovies(collect($this->similarMovies['results'])->sortByDesc('popularity'));
     }
 

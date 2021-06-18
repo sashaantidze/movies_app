@@ -109,8 +109,19 @@ class MoviesViewModel extends ViewModel
                 return [$value => $this->genres()->get($value)];
             })->implode(', ');
             ;
+
+            if(Arr::exists($movie, 'title')){
+                $title = $movie['title'];
+            }
+            else if(Arr::exists($movie, 'name')){
+                $title = $movie['name'];
+            }
+            else{
+                $title = 'Untitled';
+            }
+
             return collect($movie)->merge([
-                'poster_path' => $movie['poster_path'] ? config('services.tmdb.image_base_url')."/w500".$movie['poster_path'] : 'https://via.placeholder.com/500x737.png?text='.$movie['title'],
+                'poster_path' => $movie['poster_path'] ? config('services.tmdb.image_base_url')."/w500".$movie['poster_path'] : 'https://via.placeholder.com/500x737.png?text='.$title,
                 'vote_average' => $movie['vote_average'] * 10 . '%',
                 'release_date' => Arr::exists($movie, 'release_date') ? Carbon::parse($movie['release_date'])->format('M d, Y') : 'Release date not available',
                 'genres' => $genresFormatted,

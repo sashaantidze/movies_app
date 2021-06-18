@@ -10,9 +10,12 @@ Route::get('/movies/person/{person}', 'App\Http\Controllers\MoviesController@per
 Route::get('/movies/similar/{movie}/{page?}', 'App\Http\Controllers\MoviesController@similar')->name('movies.similar');
 Route::get('/movies/recommendation/{movie}/{page?}', 'App\Http\Controllers\MoviesController@recommendation')->name('movies.recommendation');
 
+
+Route::get('/tv', 'App\Http\Controllers\TvController@index')->name('tv.index');
+Route::get('/tv/{tv}', 'App\Http\Controllers\TvController@show')->name('tv.show');
+
+
 Route::get('/people', 'App\Http\Controllers\PeopleController@index')->name('people.index');
 Route::get('/people/{person}', 'App\Http\Controllers\PeopleController@show')->name('people.show');
 Route::get('/people/page/{page?}', 'App\Http\Controllers\PeopleController@index');
-
 Route::get('/people/{person}', 'App\Http\Controllers\PeopleController@show')->name('people.show');
-
