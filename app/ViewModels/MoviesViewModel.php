@@ -13,12 +13,13 @@ class MoviesViewModel extends ViewModel
     public $genres;
     public $keyword;
     public $page;
+    public $controllerName;
 
-    public function __construct($moviesData, $nowPlaying, $genres, $keyword = '', $page = 1, $person_id = null)
+    public function __construct($controller, $moviesData, $nowPlaying, $genres, $keyword = '', $page = 1, $person_id = null)
     {
         //dd($moviesData);
+        $this->controllerName = $controller;
         $this->moviesData = $this->defineMoviesDestination($moviesData);
-        //$this->moviesData = $moviesData;
         $this->nowPlaying = $nowPlaying;
         $this->genres = $genres;
         $this->keyword = $keyword;
@@ -26,7 +27,6 @@ class MoviesViewModel extends ViewModel
         $this->person_id = $person_id;
         $this->base_movie_ID = Arr::exists($moviesData, 'main_movie_id') ? $moviesData['main_movie_id'] : null;
         $this->main_mov_title = Arr::exists($moviesData, 'title') ? $moviesData['title'] : null;
-        //dd($this->defineMoviesDestination($moviesData));
 
     }
 
@@ -45,6 +45,12 @@ class MoviesViewModel extends ViewModel
         {
             return $movies;
         }
+    }
+
+
+    public function controllerName()
+    {
+        return $this->controllerName;
     }
 
 

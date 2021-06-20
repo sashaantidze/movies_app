@@ -9,11 +9,16 @@ class PeopleViewModel extends ViewModel
 
     public $people;
     public $page;
+    public $controllerName;
 
-    public function __construct($people, $page)
+    public function __construct($controller, $people, $keyword = '', $page = 1)
     {
         $this->people = $people;
+        $this->keyword = $keyword;
         $this->page = $page;
+        $this->controllerName = $controller;
+
+        //dd($people);
     }
 
 
@@ -36,15 +41,33 @@ class PeopleViewModel extends ViewModel
     }
 
 
+    public function controllerName()
+    {
+        return $this->controllerName;
+    }
+
+
+    public function page()
+    {
+        return $this->page;
+    }
+
+
     public function previous()
     {
-        return $this->page > 1 ? $this->page - 1 : null;
+        return (int)$this->page > 1 ? (int)$this->page - 1 : null;
     }
 
 
     public function next()
     {
-        return $this->page < 500 ? $this->page + 1 : null;
+        return (int)$this->page < 500 ? (int)$this->page + 1 : null;
+    }
+
+
+    public function keyword()
+    {
+        return $this->keyword;
     }
 
 

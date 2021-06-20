@@ -30,7 +30,6 @@
 
 
 
-
 <?xml version="1.0" encoding="utf-8"?>
 <svg wire:loading class="search-svg-spinner top-0 right-0 bottom-0 mr-4 mt-3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; shape-rendering: auto; animation-play-state: running; animation-delay: 0s;" width="40px" height="40px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
 <g transform="rotate(0 50 50)" style="animation-play-state: running; animation-delay: 0s;">
@@ -118,7 +117,7 @@
 						</li>
 					@endforeach
 
-					@if($seeAllButton) <div class="px-3 py-3 text-center"><a x-bind:href="'/movies/search/'+keyword">See All</a></div> @endif
+					@if($seeAllButton) <div class="px-3 py-3 text-center"><a x-bind:href="'/{{$search_endpoint}}/search/'+keyword">See All</a></div> @endif
 				</ul>
 
 			@else

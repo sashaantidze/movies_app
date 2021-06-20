@@ -13,9 +13,11 @@ class TvViewModel extends ViewModel
     public $genres;
     public $keyword;
     public $page;
+    public $controllerName;
 
-    public function __construct($TvData, $topRated, $genres, $keyword = '', $page = 1, $person_id = null)
+    public function __construct($controller, $TvData, $topRated, $genres, $keyword = '', $page = 1, $person_id = null)
     {
+        $this->controllerName = $controller;
         $this->TvData = $TvData['results'];
         $this->topRated = $topRated['results'];
         $this->genres = $genres;
@@ -30,6 +32,11 @@ class TvViewModel extends ViewModel
     // {
     //     return $this->base_movie_ID;
     // }
+
+    public function controllerName()
+    {
+        return $this->controllerName;
+    }
 
 
     public function person_id()

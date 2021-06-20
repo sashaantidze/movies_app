@@ -10,11 +10,12 @@ class PersonViewModel extends ViewModel
 {
     public $person;
 
-    public function __construct($person, $social, $credits)
+    public function __construct($controller, $person, $social, $credits)
     {
         $this->person = $person;
         $this->social = $social;
         $this->credits = $credits;
+        $this->controllerName = $controller;
     }
 
 
@@ -35,6 +36,12 @@ class PersonViewModel extends ViewModel
             'facebook'=> $this->social['facebook_id'] ? 'https://facebook.com/'.$this->social['facebook_id'] : null,
             'instagram'=> $this->social['instagram_id'] ? 'https://instagram.com/'.$this->social['instagram_id'] : null,
         ]);
+    }
+
+
+    public function controllerName()
+    {
+        return $this->controllerName;
     }
 
 

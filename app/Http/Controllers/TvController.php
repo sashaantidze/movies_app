@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ViewModels\TVSeasonViewModel;
 use App\ViewModels\TVShowViewModel;
 use App\ViewModels\TvViewModel;
 use Illuminate\Http\Request;
@@ -19,9 +20,9 @@ class TvController extends Controller
     {
         $popularShows = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/tv/popular')->json();
         $topRatedShows = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/tv/top_rated')->json();
-        
 
         $viewModel = new TvViewModel(
+            $this->getControllerName(),
             $popularShows,
             $topRatedShows,
             $this->getGenres()
@@ -30,6 +31,7 @@ class TvController extends Controller
 
         return view('tv.index', $viewModel);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -77,9 +79,32 @@ class TvController extends Controller
         //dd($personTvshows);
 
         $personTvshows['results'] = $personTvshows['cast'];
-        $viewModel = new TvViewModel($personTvshows, ['results' => []], $this->getGenres(), '', 1, $id);
+        $viewModel = new TvViewModel($this->getControllerName(), $personTvshows, ['results' => []], $this->getGenres(), '', 1, $id);
         return view('tv.person', $viewModel);
 
+    }
+
+
+    public function seasons($id)
+    {
+        $TvSeasons = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/tv/'.$id.'?append_to_response=credits,videos,images,similar,recommendations')->json();
+
+        //dd($TvSeasons);
+
+        $viewModel = new TVShowViewModel($TvSeasons, $this->getGenres());
+
+        return view('tv.seasons', $viewModel);
+    }
+
+
+    public function season($id, $season_num)
+    {
+        $seasonDeatils = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/tv/'.$id.'/season/'.$season_num.'?append_to_response=credits,videos,images')->json();
+
+        //dd($seasonDeatils);
+        $viewModel = new TVSeasonViewModel($seasonDeatils);
+
+        return view('tv.season', $viewModel);
     }
 
     /**

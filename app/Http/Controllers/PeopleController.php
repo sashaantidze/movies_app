@@ -20,9 +20,24 @@ class PeopleController extends Controller
 
         $popularPeople = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/popular?page='.$page)->json()['results'];
 
-        $viewModel = new PeopleViewModel($popularPeople, $page);
+        $viewModel = new PeopleViewModel($this->getControllerName(), $popularPeople, $page);
 
         return view('people.index', $viewModel);
+    }
+
+
+    public function search($search, $page = 1)
+    {
+        $searchResults = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/search/person?query='.$search.'&page='.$page)->json();
+
+        $viewModel = new PeopleViewModel(
+            $this->getControllerName(),
+            $searchResults['results'],
+            $search,
+            $page
+        );
+
+        return view('people.search', $viewModel);
     }
 
     /**
@@ -59,7 +74,7 @@ class PeopleController extends Controller
         $socialNets = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/'.$id.'/external_ids')->json();
         $combinedCredits = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/person/'.$id.'/combined_credits')->json();
         
-        $viewModel = new PersonViewModel($person, $socialNets, $combinedCredits);
+        $viewModel = new PersonViewModel($this->getControllerName(),$person, $socialNets, $combinedCredits);
 
         return view('people.show', $viewModel);
     }

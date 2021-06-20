@@ -1,5 +1,10 @@
 @extends('layouts.main')
 
+
+@section('liveweire-search-component')
+	<livewire:search-dropdown :controller="$controllerName">
+@endsection
+
 @section('content')
 
 	<div class="movie-info border-b border-gray-800">
@@ -35,6 +40,8 @@
 
 				</ul>
 			</div>
+
+			
 
 			<div class="md:ml-24">
 				<h2 class="text-4xl font-semibold">{{$person['name']}}</h2>

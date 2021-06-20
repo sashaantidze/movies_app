@@ -43,13 +43,13 @@
 
 		<div class="flex justify-between mt-16 hidden">
 			@if($previous)
-				<a href="/people/page/{{$previous}}">Previous</a>
+				<a href="/people/search/{{$keyword}}/{{$previous}}">Previous</a>
 			@else
 				<div></div>
 			@endif
 			
 			@if($next)
-				<a class="infin-pag-next" href="/people/page/{{$next}}">Next</a>
+				<a class="infin-pag-next" href="/people/search/{{$keyword}}/{{$next}}">Next</a>
 			@else
 				<div></div>
 			@endif

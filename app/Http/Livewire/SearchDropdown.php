@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\ViewModels\SearchViewModel;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -11,25 +12,64 @@ class SearchDropdown extends Component
 	public $search = '';
 	public $resultsAmount = 10;
 	public $seeAllButton = false;
+    public $searchEndpoint;
+    public $controller;
 
     public function render()
     {
-
     	$searchResults = [];
 
     	if(strlen($this->search) > 2)
     	{
-    		$searchResults = $popularMovies = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/search/movie?query='.$this->search)->json()['results'];
+    		$searchResults = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/search/'.$this->defineSearchEndpoint()['endpoint'].'?query='.$this->search)->json()['results'];
     	}
 
+        //dd('https://api.themoviedb.org/3/search/'.$this->defineSearchEndpoint().'?query='.$this->search);
     	if(count($searchResults) > $this->resultsAmount)
     	{
     		$this->seeAllButton = true;
     	}
+        
 
-        return view('livewire.search-dropdown', [
-        	'searchResults' => collect($searchResults)->take($this->resultsAmount),
-        	'seeAllButton' => $this->seeAllButton
-        ]);
+        $viewModel = new SearchViewModel(
+            collect($searchResults)->take($this->resultsAmount), 
+            $this->seeAllButton, 
+            $this->defineSearchEndpoint()['ctrler']
+        );
+
+        return view('livewire.search-dropdown', $viewModel);
     }
+
+
+    private function defineSearchEndpoint()
+    {
+        $endpoints = [];
+
+        switch($this->controller)
+        {
+            case 'MoviesController':
+                $endpoints['ctrler'] = 'movies';
+                $endpoints['endpoint'] = 'movie';
+                break;
+
+            case 'TvController':
+                $endpoints['ctrler'] = 'tv';
+                $endpoints['endpoint'] = 'tv';
+                break;
+
+            case 'PeopleController':
+                $endpoints['ctrler'] = 'people';
+                $endpoints['endpoint'] = 'person';
+                break;
+
+            default:
+                $endpoints['ctrler'] = 'movies';
+                $endpoints['endpoint'] = 'movie';
+        }
+
+        return $endpoints;
+    }
+
+
+
 }

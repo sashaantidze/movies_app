@@ -4,7 +4,17 @@
 
 	<div class="tvshow-info border-b border-gray-800">
 		<div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
-			<img src="{{$tvshow['poster_path']}}" alt="{{ $tvshow['name'] }}" class="w-64 md:w-96">
+
+
+			<div class="flex-none">
+				<img src="{{$tvshow['poster_path']}}" alt="{{ $tvshow['name'] }}" class="w-64 md:w-96">
+			</div>
+
+			
+
+
+
+
 			<div class="md:ml-24">
 				<h2 class="text-4xl font-semibold">{{ $tvshow['name'] }}</h2>
 				<div class="flex flex-wrap items-center text-gray-400 text-sm mt-1">
@@ -61,9 +71,45 @@
 				</div>
 
 
+
+				<h4 class="font-semibold mt-12">Seasons</h4>
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+					@foreach($tvshow['seasons']->take(5) as $season)
+					<div class="mt-4">
+						<a href="{{route('tv.season', ['tv'=>$tvshow['id'], 'season'=>$season['season_number']])}}">
+							<img src="{{$season['poster_path']}}" alt="poster" title="{{$season['name']}}" class="hover:opacity-75 transition ease-in-out duration-150">
+						</a>
+						<a href="{{route('tv.season', ['tv'=>$tvshow['id'], 'season'=>$season['season_number']])}}" class="text-sm leading-normal block text-gray-400 hover:text-white mt-1">{{$season['name']}} <span class="text-xs">({{$season['episode_count']}} Episodes)</span></a>
+					</div>
+
+					@endforeach
+
+					
+				</div>
+
+				@if($tvshow['seasons']->count() > 5)
+					<div class="flex justify-end mt-2">
+						<a target="_blank" href="{{route('tv.seasons', $tvshow['id'])}}" class="inline-flex items-center px-3 text-sm py-2 font-medium rounded px-4 py-2 leading-5 bg-yellow-500 text-primary-100 transition ease-in-out duration-150 text-black hover:text-black hover:bg-yellow-600">
+						    See All Seasons &nbsp;&nbsp; <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+							  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+							</svg>
+						</a>
+					</div>
+				@endif
+
+
+
 			</div>
+
+
+
+
+
+
 		</div>
 	</div>
+
+
 
 
 	<div class="tvshow-cast border-b border-gray-800">

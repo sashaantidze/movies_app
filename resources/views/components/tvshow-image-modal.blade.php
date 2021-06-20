@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body px-8 py-8">
                 <div class="responsive-container overflow-hidden relative">
-                    <img :src="image" alt="poster">
+                    <img class="object-contain" :src="image" alt="poster">
                 </div>
             </div>
         </div>

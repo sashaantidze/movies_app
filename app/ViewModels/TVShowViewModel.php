@@ -16,7 +16,6 @@ class TVShowViewModel extends ViewModel
 
     public function __construct($tvshow, $genres)
     {
-        dd($tvshow);
         $this->tvshow = $tvshow;
         $this->genres = $genres;
         $this->similarShows = $tvshow['similar'];
@@ -34,9 +33,16 @@ class TVShowViewModel extends ViewModel
             'crew' => collect($this->tvshow['credits']['crew'])->take(5),
             'cast' => collect($this->tvshow['credits']['cast'])->take(10),
             'images' => collect($this->tvshow['images']['backdrops'])->take(12),
+            'seasons' => collect($this->tvshow['seasons'])->map(function($season){
+                return collect($season)->merge([
+                    'poster_path' => $season['poster_path'] ? config('services.tmdb.image_base_url')."/w500".$season['poster_path'] : 'https://via.placeholder.com/500x737.png?text='.$season['name'],
+                    'air_date' => Carbon::parse($season['air_date'])->format('M d, Y'),
+                    'parent_tvshow_id' => $this->tvshow['id']
+                ]);
+            })
         ])->only([
             'poster_path', 'id', 'genres', 'name', 'vote_average', 'overview', 'first_air_date', 'credits' ,
-            'videos', 'images', 'crew', 'cast', 'images', 'popularity', 'created_by'
+            'videos', 'images', 'crew', 'cast', 'images', 'popularity', 'created_by', 'seasons', 'parent_tvshow_id'
         ]);
     }
 
