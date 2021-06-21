@@ -2,6 +2,10 @@
 
 @section('page_title')TV Shows by {{$_GET['name']}} - @endsection
 
+@section('liveweire-search-component')
+	<livewire:search-dropdown :controller="$controllerName">
+@endsection
+
 @section('content')
 
 	<div class="container mx-auto px-4 pt-16">

@@ -9,10 +9,18 @@ class TVSeasonViewModel extends ViewModel
 {
 
     public $seasonDetails;
+    public $controllerName;
 
-    public function __construct($season)
+    public function __construct($controller, $season)
     {
         $this->seasonDetails = $season;
+        $this->controllerName = $controller;
+    }
+
+
+    public function controllerName()
+    {
+        return $this->controllerName;
     }
 
 

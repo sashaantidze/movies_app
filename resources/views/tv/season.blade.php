@@ -2,6 +2,10 @@
 
 @section('page_title') {{$season['name']}} - @endsection
 
+@section('liveweire-search-component')
+	<livewire:search-dropdown :controller="$controllerName">
+@endsection
+
 @section('content')
 
 	<div class="tvshow-info border-b border-gray-800">

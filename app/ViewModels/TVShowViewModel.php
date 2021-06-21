@@ -13,13 +13,20 @@ class TVShowViewModel extends ViewModel
     public $similarShows;
     public $recommendations;
     public $genres;
+    public $controllerName;
 
-    public function __construct($tvshow, $genres)
+    public function __construct($controller, $tvshow, $genres)
     {
         $this->tvshow = $tvshow;
         $this->genres = $genres;
+        $this->controllerName = $controller;
         $this->similarShows = $tvshow['similar'];
         $this->recommendations = $tvshow['recommendations'];
+    }
+
+    public function controllerName()
+    {
+        return $this->controllerName;
     }
 
 

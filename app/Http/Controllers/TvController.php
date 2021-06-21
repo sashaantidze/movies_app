@@ -85,7 +85,7 @@ class TvController extends Controller
 
 
         //dd($TvDetails);
-        $viewModel = new TVShowViewModel($TvDetails, $this->getGenres());
+        $viewModel = new TVShowViewModel($this->getControllerName(), $TvDetails, $this->getGenres());
 
         return view('tv.show', $viewModel);
     }
@@ -110,7 +110,7 @@ class TvController extends Controller
 
         //dd($TvSeasons);
 
-        $viewModel = new TVShowViewModel($TvSeasons, $this->getGenres());
+        $viewModel = new TVShowViewModel($this->getControllerName(), $TvSeasons, $this->getGenres());
 
         return view('tv.seasons', $viewModel);
     }
@@ -121,7 +121,7 @@ class TvController extends Controller
         $seasonDeatils = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/tv/'.$id.'/season/'.$season_num.'?append_to_response=credits,videos,images')->json();
 
         //dd($seasonDeatils);
-        $viewModel = new TVSeasonViewModel($seasonDeatils);
+        $viewModel = new TVSeasonViewModel($this->getControllerName(), $seasonDeatils);
 
         return view('tv.season', $viewModel);
     }
