@@ -106,7 +106,7 @@
 					@foreach($searchResults as $movie)
 
 						<li class="border-b border-gray-700">
-							<a href="{{ route('movies.show', $movie['id']) }}" class="block hover:bg-gray-700 px-3 py-3 flex items-center" @if($loop->last) @keydown.tab="isOpen = false" @endif>
+							<a href="{{ route($search_endpoint.'.show', $movie['id']) }}" class="block hover:bg-gray-700 px-3 py-3 flex items-center" @if($loop->last) @keydown.tab="isOpen = false" @endif>
 								@if($movie['poster_path'])
 									<img class="w-8" src="{{config('services.tmdb.image_base_url')."/w92".$movie['poster_path']}}" alt="{{$movie['title']}}">
 								@else

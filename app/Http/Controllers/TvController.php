@@ -54,6 +54,25 @@ class TvController extends Controller
         //
     }
 
+
+    public function search($search, $page = 1)
+    {
+        $searchResults = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/search/tv?query='.$search.'&page='.$page)->json();
+        $genres = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/genre/movie/list')->json()['genres'];
+
+        //dd($searchResults);
+        $viewModel = new TvViewModel(
+            $this->getControllerName(),
+            $searchResults,
+            ['results' => []],
+            $genres,
+            $search,
+            $page
+        );
+
+        return view('tv.search', $viewModel);
+    }
+
     /**
      * Display the specified resource.
      *

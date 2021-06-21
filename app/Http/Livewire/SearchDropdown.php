@@ -24,12 +24,7 @@ class SearchDropdown extends Component
     		$searchResults = Http::withToken(config('services.tmdb.token'))->get('https://api.themoviedb.org/3/search/'.$this->defineSearchEndpoint()['endpoint'].'?query='.$this->search)->json()['results'];
     	}
 
-        //dd('https://api.themoviedb.org/3/search/'.$this->defineSearchEndpoint().'?query='.$this->search);
-    	if(count($searchResults) > $this->resultsAmount)
-    	{
-    		$this->seeAllButton = true;
-    	}
-        
+    	if(count($searchResults) > $this->resultsAmount) $this->seeAllButton = true;
 
         $viewModel = new SearchViewModel(
             collect($searchResults)->take($this->resultsAmount), 

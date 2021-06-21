@@ -1,5 +1,11 @@
 @extends('layouts.main')
 
+@section('liveweire-search-component')
+	<livewire:search-dropdown :controller="$controllerName">
+@endsection
+
+@section('page_title')Movies by {{$_GET['name']}} - @endsection
+
 @section('content')
 
 	<div class="container mx-auto px-4 pt-16">

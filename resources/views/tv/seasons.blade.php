@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('page_title') Seasons - @endsection
+
 @section('content')
 
 	<div class="container mx-auto px-4 pt-16 mb-10">

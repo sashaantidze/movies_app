@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Movie App</title>
+	<title>@yield('page_title') Movie App</title>
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
 	<livewire:styles>

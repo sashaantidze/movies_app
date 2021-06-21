@@ -1,5 +1,11 @@
 @extends('layouts.main')
 
+@section('page_title')"{{$keyword}}" Search - @endsection
+
+@section('liveweire-search-component')
+	<livewire:search-dropdown :controller="$controllerName">
+@endsection
+
 @section('content')
 
 	<div class="container mx-auto px-4 py-16">

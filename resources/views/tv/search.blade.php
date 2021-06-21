@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('page_title')Recommended for "{{$baseMovTitle}}" - @endsection
+@section('page_title')"{{$keyword}}" Search - @endsection
 
 @section('liveweire-search-component')
 	<livewire:search-dropdown :controller="$controllerName">
@@ -11,13 +11,13 @@
 	<div class="container mx-auto px-4 py-16">
 
 		<div class="popular-movies">
-			<h2 class="uppercase tracking-wider text-yellow-500 text-lg font-semibold">Recommended movies for <span class="italic text-yellow-300 normal-case font-normal tracking-widest">"{{$baseMovTitle}}"</span></h2>
+			<h2 class="uppercase tracking-wider text-yellow-500 text-lg font-semibold">Search results for <span class="italic text-yellow-300 normal-case font-normal tracking-widest">"{{$keyword}}"</span></h2>
 
 			<div class="grid movgrid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
 
-				@foreach($moviesData as $popMovie)
+				@foreach($TvData as $tvshow)
 
-					<x-movie-card :movie="$popMovie" :genres="$genres"/>
+					<x-tv-card :tvshow="$tvshow" :genres="$genres"/>
 
 				@endforeach
 	
@@ -36,13 +36,13 @@
 
 		<div class="flex justify-between mt-16 hidden">
 			@if($previous)
-				<a href="/movies/recommendation/{{$baseMovID}}/{{$previous}}">Previous</a>
+				<a href="/tv/search/{{$keyword}}/{{$previous}}">Previous</a>
 			@else
 				<div></div>
 			@endif
 			
 			@if($next)
-				<a class="infin-pag-next" href="/movies/recommendation/{{$baseMovID}}/{{$next}}">Next</a>
+				<a class="infin-pag-next" href="/tv/search/{{$keyword}}/{{$next}}">Next</a>
 			@else
 				<div></div>
 			@endif

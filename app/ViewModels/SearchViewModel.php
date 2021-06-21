@@ -15,7 +15,7 @@ class SearchViewModel extends ViewModel
         //dd($endpoint);
         $this->searchResults = $search;
         $this->seeAllButton = $button;
-        $this->searchEndpoint = $endpoint === 'person' ? 'people' : $endpoint;
+        $this->searchEndpoint = $endpoint;
 
     }
 

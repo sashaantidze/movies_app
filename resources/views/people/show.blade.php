@@ -1,5 +1,6 @@
 @extends('layouts.main')
 
+@section('page_title'){{$person['name']}} - @endsection
 
 @section('liveweire-search-component')
 	<livewire:search-dropdown :controller="$controllerName">

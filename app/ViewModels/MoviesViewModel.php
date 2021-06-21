@@ -54,10 +54,10 @@ class MoviesViewModel extends ViewModel
     }
 
 
-    // public function baseMovTitle()
-    // {
-    //     return $this->main_mov_title;
-    // }
+    public function baseMovTitle()
+    {
+        return $this->main_mov_title;
+    }
 
     public function baseMovID()
     {

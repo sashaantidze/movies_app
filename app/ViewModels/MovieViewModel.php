@@ -14,13 +14,15 @@ class MovieViewModel extends ViewModel
     public $recommendations;
     public $genres;
 
-    public function __construct($movie, $genres)
+    public function __construct($controller, $movie, $genres)
     {
         
         $this->movie = $movie;
+        $this->genres = $genres;
+        $this->controllerName = $controller;
         $this->similarMovies = $movie['similar'];
         $this->recommendations = $movie['recommendations'];
-        $this->genres = $genres;
+        
     }
 
     public function similarMovies()
@@ -31,6 +33,11 @@ class MovieViewModel extends ViewModel
     public function recommendations()
     {
         return $this->formatMovies(collect($this->recommendations['results'])->sortByDesc('popularity'));
+    }
+
+    public function controllerName()
+    {
+        return $this->controllerName;
     }
 
     public function movie()

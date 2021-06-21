@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('page_title') {{$season['name']}} - @endsection
+
 @section('content')
 
 	<div class="tvshow-info border-b border-gray-800">

@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('page_title')People - @endsection
+
 @section('liveweire-search-component')
 	<livewire:search-dropdown :controller="$controllerName">
 @endsection

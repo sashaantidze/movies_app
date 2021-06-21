@@ -1,5 +1,11 @@
 @extends('layouts.main')
 
+@section('page_title'){{$movie['title']}} - @endsection
+
+@section('liveweire-search-component')
+	<livewire:search-dropdown :controller="$controllerName">
+@endsection
+
 @section('content')
 
 	<div class="movie-info border-b border-gray-800">
