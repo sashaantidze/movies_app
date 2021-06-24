@@ -13,6 +13,8 @@ Route::get('/movies/search/{keyword}/{page?}', 'App\Http\Controllers\MoviesContr
 Route::get('/people/search/{keyword}/{page?}', 'App\Http\Controllers\PeopleController@search')->name('people.search');
 Route::get('/tv/search/{keyword}/{page?}', 'App\Http\Controllers\TvController@search')->name('tv.search');
 
+Route::get('movies/rating/{rating}/{movie_id}', 'App\Http\Controllers\MoviesController@rating');
+Route::get('movies/session/{movie_id}', 'App\Http\Controllers\MoviesController@session');
 
 Route::get('/tv', 'App\Http\Controllers\TvController@index')->name('tv.index');
 Route::get('/tv/{tv}', 'App\Http\Controllers\TvController@show')->name('tv.show');

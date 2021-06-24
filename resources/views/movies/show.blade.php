@@ -8,6 +8,20 @@
 
 @section('content')
 
+@if ($stat = Session::get('tmdb_session_status'))
+
+	<script>
+		Swal.fire({
+		  position: 'bottom-start',
+		  icon: '{{ $stat['status'] }}',
+		  title: '{{ $stat['msg'] }}',
+		  text: '{{ $stat['sub_msg'] }}',
+		  showConfirmButton: true,
+		})
+	</script>	
+        
+@endif
+
 	<div class="movie-info border-b border-gray-800">
 		<div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
 			<img src="{{$movie['poster_path']}}" alt="{{ $movie['title'] }}" class="w-64 md:w-96">
@@ -65,6 +79,49 @@
 					<x-movie-trailer-modal :movie=$movie/>
 
 				</div>
+
+				
+
+
+				
+
+
+				<div class="ratings mt-8" x-data="func()">
+
+					<fieldset class="rating">
+					
+						@for($i = 10; $i >= 1; $i--)
+							<input @click="showMess($event)" type="radio" data-rate="{{$i}}" id="star_{{$i}}" name="rating" value="{{$i}}" /><label class = "full" for="star_{{$i}}"></label>
+						@endfor
+
+					</fieldset>
+				</div>
+
+				<script>
+					function func(){
+						return {
+							showMess(e) {
+								fetch('/movies/rating/' + e.target.dataset.rate +'/{{$movie['id']}}', {
+									method: 'GET',
+									headers: {
+										'Content-Type': 'application/json',
+									},
+								}).then(function(response){
+									if(response.status === 200){
+										response.json().then(function(data) {
+											Swal.fire(
+											  data.msg,
+											  data.sub_msg,
+											  data.status
+											)
+									        console.log(data);
+									      });
+									}
+								});
+							}
+						}
+					}
+				</script>
 
 
 			</div>
@@ -179,3 +236,4 @@
 	</div>
 
 @endsection
+
