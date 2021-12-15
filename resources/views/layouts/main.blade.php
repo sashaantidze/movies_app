@@ -43,11 +43,6 @@
 
 			<div class="flex flex-col md:flex-row items-center">
 				@yield('liveweire-search-component')
-				<div class="md:ml-4 mt-3 md:mt-0">
-					<a href="#">
-						<img src="{{ asset('img/avatar.png') }}" alt="Avatar" class="rounded-full w-8 h-8">
-					</a>
-				</div>
 			</div>
 
 		</div>
